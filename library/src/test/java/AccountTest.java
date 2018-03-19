@@ -1,4 +1,5 @@
 import com.thoughtworks.step.bank.Account;
+import com.thoughtworks.step.bank.MinimumBalanceException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,7 +11,7 @@ public class AccountTest {
     private Account account;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception, MinimumBalanceException {
         account = new Account("1234", 1000);
     }
 
@@ -22,5 +23,10 @@ public class AccountTest {
     @Test
     public void checkAccountNumber() {
         assertThat(account.getAccountNumber(),is("1234"));
+    }
+
+    @Test(expected = MinimumBalanceException.class)
+    public void checkMinimumBalance() throws MinimumBalanceException {
+        new Account("2345",200);
     }
 }
