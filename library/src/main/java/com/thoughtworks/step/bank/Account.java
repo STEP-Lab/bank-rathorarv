@@ -19,4 +19,9 @@ public class Account {
     public String getAccountNumber() {
         return accountNumber;
     }
+
+    public double debit(double amount) {
+        balance -= amount;
+        return balance;
+    }
 }
