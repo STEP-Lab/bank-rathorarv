@@ -1,4 +1,5 @@
 import com.thoughtworks.step.bank.Account;
+import com.thoughtworks.step.bank.LowAccountBalanceException;
 import com.thoughtworks.step.bank.MinimumBalanceException;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,9 +32,16 @@ public class AccountTest {
     }
 
     @Test
-    public void withdrawAmount() throws MinimumBalanceException {
+    public void withdrawValidAmount() throws LowAccountBalanceException, MinimumBalanceException {
+        Account account = new Account("1234", 4000.00);
+        account.debit(2000);
+        assertThat(account.getBalance(),is(2000.00));
+    }
+
+    @Test(expected = LowAccountBalanceException.class)
+    public void withdrawInvalidAmount() throws MinimumBalanceException, LowAccountBalanceException {
         Account account = new Account("1234", 3000.00);
-        account.debit(1000);
+        account.debit(2000);
         assertThat(account.getBalance(),is(2000.00));
     }
 }

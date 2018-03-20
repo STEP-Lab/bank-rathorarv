@@ -20,8 +20,12 @@ public class Account {
         return accountNumber;
     }
 
-    public double debit(double amount) {
+    public double debit(double amount) throws LowAccountBalanceException {
+        if (balance - amount > 1000) {
         balance -= amount;
         return balance;
+        }else {
+            throw new LowAccountBalanceException();
+        }
     }
 }
