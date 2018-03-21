@@ -31,4 +31,8 @@ public class Account {
             throw new MinimumBalanceException();
         }
     }
+    public double credit(double amount){
+        balance += amount;
+        return balance;
+    }
 }

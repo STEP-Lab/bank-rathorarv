@@ -49,4 +49,10 @@ public class AccountTest {
         account.debit(2000);
         assertThat(account.getBalance(),is(2000.00));
     }
+    @Test
+    public void credit() throws MinimumBalanceException, InvalidAccountNumber {
+        Account account = new Account("1234-1234", 3000.00);
+        account.credit(200.490);
+        assertThat(account.getBalance(),is(3200.490));
+    }
 }
