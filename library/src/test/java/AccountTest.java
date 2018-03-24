@@ -1,4 +1,5 @@
 import com.thoughtworks.step.bank.Account;
+import com.thoughtworks.step.bank.AccountNumber;
 import com.thoughtworks.step.bank.InvalidAccountNumber;
 import com.thoughtworks.step.bank.MinimumBalanceException;
 import org.junit.Before;
@@ -13,46 +14,41 @@ public class AccountTest {
 
     @Before
     public void setUp() throws MinimumBalanceException, InvalidAccountNumber {
-        account = new Account("1234-1234", 1000.00);
+        account = new Account(new AccountNumber("1234-1234"), 2000.00);
     }
 
     @Test
     public void checkBalance() {
-        assertThat(account.getBalance(), is(1000.00));
+        assertThat(account.getBalance(), is(2000.00));
     }
 
     @Test(expected = InvalidAccountNumber.class)
     public void validateAccountNumber() throws MinimumBalanceException, InvalidAccountNumber {
-        new Account("1234-12", 2000.00);
-    }
-
-    @Test
-    public void checkAccountNumber() {
-        assertThat(account.getAccountNumber(),is("1234-1234"));
+        new Account(new AccountNumber("1234-123a"), 2000.00);
     }
 
     @Test(expected = MinimumBalanceException.class)
     public void checkMinimumBalance() throws MinimumBalanceException, InvalidAccountNumber {
-        new Account("2345-2345", 200);
+        new Account(new AccountNumber("1234-1234"), 200.00);
     }
 
     @Test
     public void withdrawValidAmount() throws MinimumBalanceException, InvalidAccountNumber {
-        Account account = new Account("1234-1234", 4000.00);
-        account.debit(2000);
-        assertThat(account.getBalance(),is(2000.00));
+        Account account = new Account(new AccountNumber("1234-1234"), 2000.00);
+        account.debit(800);
+        assertThat(account.getBalance(),is(1200.00));
     }
 
     @Test(expected = MinimumBalanceException.class)
     public void withdrawInvalidAmount() throws MinimumBalanceException, InvalidAccountNumber {
-        Account account = new Account("1234-2345", 3000.00);
+        Account account = new Account(new AccountNumber("1234-1234"), 2000.00);
         account.debit(2000);
         assertThat(account.getBalance(),is(2000.00));
     }
     @Test
     public void credit() throws MinimumBalanceException, InvalidAccountNumber {
-        Account account = new Account("1234-1234", 3000.00);
+        Account account = new Account(new AccountNumber("1234-1234"), 2000.00);
         account.credit(200.490);
-        assertThat(account.getBalance(),is(3200.490));
+        assertThat(account.getBalance(),is(2200.490));
     }
 }

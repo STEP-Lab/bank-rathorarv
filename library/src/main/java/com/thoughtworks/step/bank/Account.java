@@ -1,13 +1,10 @@
 package com.thoughtworks.step.bank;
 
 public class Account {
-    private final String accountNumber;
+    private final AccountNumber accountNumber;
     private double balance;
 
-    public Account(String accountNumber, double balance) throws MinimumBalanceException, InvalidAccountNumber {
-        if(!accountNumber.matches("^\\d{4}-\\d{4}$")) {
-            throw new InvalidAccountNumber();
-        }
+    public Account(AccountNumber accountNumber, double balance) throws MinimumBalanceException {
         this.accountNumber = accountNumber;
         if(balance < 1000){
             throw new MinimumBalanceException();
@@ -19,7 +16,7 @@ public class Account {
         return balance;
     }
 
-    public String getAccountNumber() {
+    public AccountNumber getAccountNumber() {
         return accountNumber;
     }
 
