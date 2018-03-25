@@ -14,6 +14,9 @@ public class Transactions {
     public void debit(double amount,String name){
         list.add(new DebitTransaction(new Date(),name,amount));
     }
+    public void credit(double amount,String name){
+        list.add(new CreditTransaction(new Date(),name,amount));
+    }
 
     @Override
     public boolean equals(Object o) {

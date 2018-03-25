@@ -15,4 +15,12 @@ public class TransactionsTest{
         Date date = transactions.list.get(0).getDate();
         assertThat(transactions.list,hasItem(new DebitTransaction(date,"to",1002.0)));
     }
+
+    @Test
+    public void mustAddCreditTransaction() {
+        Transactions transactions = new Transactions();
+        transactions.credit(102.0,"from");
+        Date date = transactions.list.get(0).getDate();
+        assertThat(transactions.list,hasItem(new CreditTransaction(date,"from",102.0)));
+    }
 }
