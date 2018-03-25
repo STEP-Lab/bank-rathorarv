@@ -1,6 +1,7 @@
 package com.thoughtworks.step.bank;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Transaction {
     protected Date date;
@@ -18,12 +19,18 @@ public class Transaction {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return Double.compare(that.amount, amount) == 0 &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(to, that.to);
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+
+        return Objects.hash(date, to, amount);
     }
 }
