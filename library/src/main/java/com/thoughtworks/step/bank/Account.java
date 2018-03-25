@@ -4,12 +4,16 @@ public class Account {
     private final AccountNumber accountNumber;
     private double balance;
 
-    public Account(AccountNumber accountNumber, double balance) throws MinimumBalanceException {
+    private Account(AccountNumber accountNumber, double balance) {
         this.accountNumber = accountNumber;
+        this.balance = balance;
+    }
+
+    public static  Account create(AccountNumber accountNumber, double balance) throws MinimumBalanceException {
         if(balance < 1000){
             throw new MinimumBalanceException();
         }
-        this.balance = balance;
+        return new Account(accountNumber,balance);
     }
 
     public double getBalance() {
