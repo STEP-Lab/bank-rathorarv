@@ -16,9 +16,6 @@ public class Account {
         return balance;
     }
 
-    public AccountNumber getAccountNumber() {
-        return accountNumber;
-    }
 
     public double debit(double amount) throws MinimumBalanceException {
         if (balance - amount > 1000) {
