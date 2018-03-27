@@ -30,7 +30,18 @@ public class Transaction {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(date, to, amount);
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "date=" + date +
+                ", to='" + to + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
+    public String toCsv(){
+        return date + "," + to + "," + amount;
     }
 }
