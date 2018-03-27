@@ -60,4 +60,14 @@ public class Transactions {
         }
         return aboveDateTransaction;
     }
+    public ArrayList<Transaction> getTransactionsBeforeGivenDate(Date date) {
+        System.out.println(date);
+        ArrayList<Transaction> aboveDateTransaction = new ArrayList<>();
+        for (Transaction transaction : list){
+            if(transaction.getDate().before(date)){
+                aboveDateTransaction.add(transaction);
+            }
+        }
+        return aboveDateTransaction;
+    }
 }

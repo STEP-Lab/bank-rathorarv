@@ -101,8 +101,21 @@ public class TransactionsTest{
         cal.set(Calendar.YEAR, 2018);
         cal.set(Calendar.MONTH, 2);
         cal.set(Calendar.DAY_OF_MONTH, 2);
-        Date dateRepresentation = cal.getTime();
-        ArrayList<Transaction> transactionsAfterGivenDate = transactions.getTransactionsAfterGivenDate(dateRepresentation);
+        Date date = cal.getTime();
+        ArrayList<Transaction> transactionsAfterGivenDate = transactions.getTransactionsAfterGivenDate(date);
+        assertThat(transactionsAfterGivenDate,hasItems(creditTransaction, debitTransaction));
+    }
+    @Test
+    public void getTransactionsBeforeDate() {
+        transactions.debit(3000.0,"to");
+        transactions.credit(2000.0,"from");
+        Date debitDate = transactions.list.get(0).getDate();
+        Date creditDate = transactions.list.get(1).getDate();
+        CreditTransaction creditTransaction = new CreditTransaction(creditDate, "from", 2000.0);
+        DebitTransaction debitTransaction = new DebitTransaction(debitDate, "to", 3000.0);
+        Date date = new Date();
+        date.setMinutes(date.getMinutes() + 12);
+        ArrayList<Transaction> transactionsAfterGivenDate = transactions.getTransactionsBeforeGivenDate(date);
         assertThat(transactionsAfterGivenDate,hasItems(creditTransaction, debitTransaction));
     }
 }
