@@ -4,14 +4,16 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Transaction {
+    private final double balance;
     protected Date date;
     protected final String to;
     protected final double amount;
 
-    public Transaction(Date date, String to, double amount) {
+    public Transaction(Date date, String to, double amount, double balance) {
         this.date = date;
         this.to = to;
         this.amount = amount;
+        this.balance = balance;
     }
 
     public Date getDate() {

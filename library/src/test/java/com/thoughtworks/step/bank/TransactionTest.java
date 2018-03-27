@@ -11,7 +11,7 @@ public class TransactionTest {
     @Test
     public void createTransaction() {
         Date date = new Date();
-        Transaction transaction = new Transaction(date, "to", 200.0);
+        Transaction transaction = new Transaction(date, "to", 200.0,100.0);
         assertThat(transaction.getDate(),is(date));
     }
 }

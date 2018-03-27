@@ -11,7 +11,7 @@ public class DebitTransactionTest {
     @Test
     public void mustCreateDebitTransaction() {
         Date date = new Date();
-        DebitTransaction debitTransaction = new DebitTransaction(date, "to", 200.00);
+        DebitTransaction debitTransaction = new DebitTransaction(date, "to", 200.00,200.0);
         assertThat(debitTransaction.getDate(),is(date));
     }
 }

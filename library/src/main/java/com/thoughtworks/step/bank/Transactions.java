@@ -11,25 +11,26 @@ public class Transactions {
     public Transactions() {
         this.list = new ArrayList<>();
     }
-    public void debit(double amount,String name){
-        list.add(new DebitTransaction(new Date(),name,amount));
+    public void debit(double amount, String name, double balance){
+        list.add(new DebitTransaction(new Date(),name,amount,balance));
     }
-    public void credit(double amount,String name){
-        list.add(new CreditTransaction(new Date(),name,amount));
+    public void credit(double amount, String name, double balance){
+        list.add(new CreditTransaction(new Date(),name,amount,balance));
     }
 
     public void print(PrintWriter printer) {
         for(Transaction transaction : list){
             printer.println(transaction.toString());
         }
-        printer.close();
     }
 
     public void printCsv(PrintWriter writer) {
+        String[] headers = {"date","to","amount"};
         for(Transaction transaction : list){
-            writer.append(transaction.toCsv());
+            CsvPrint csvPrint = new CsvPrint(writer, headers);
+            csvPrint.writer(transaction);
+            csvPrint.close();
         }
-        writer.close();
     }
 
     public ArrayList<Transaction> getDebitTransactions() {

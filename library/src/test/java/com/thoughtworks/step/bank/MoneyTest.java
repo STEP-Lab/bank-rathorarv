@@ -31,4 +31,9 @@ public class MoneyTest {
     public void getCurrenyDisplayName() {
         assertThat(money.getCurrencyDisplayName(),is("Indian Rupee"));
     }
+
+    @Test(expected = InvalidAmountException.class)
+    public void mustThrowEzxceptionWhenAmountIsNegative() throws InvalidAmountException {
+        money.deductAmount(-12);
+    }
 }
