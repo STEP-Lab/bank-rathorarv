@@ -2,11 +2,11 @@ package com.thoughtworks.step.bank;
 
 public class Account {
     private final AccountNumber accountNumber;
-    private double balance;
+    private Money money;
 
     private Account(AccountNumber accountNumber, double balance) {
         this.accountNumber = accountNumber;
-        this.balance = balance;
+        this.money = new Money(balance,"INR");
     }
 
     public static  Account create(AccountNumber accountNumber, double balance) throws MinimumBalanceException {
@@ -17,20 +17,16 @@ public class Account {
     }
 
     public double getBalance() {
-        return balance;
+        return money.getBalance();
     }
 
 
-    public double debit(double amount) throws MinimumBalanceException {
-        if (balance - amount > 1000) {
-        balance -= amount;
-        return balance;
-        }else {
-            throw new MinimumBalanceException();
-        }
+    public double debit(double amount) throws InvalidAmountException {
+        money.deductAmount(amount);
+        return money.getBalance();
     }
-    public double credit(double amount){
-        balance += amount;
-        return balance;
+    public double credit(double amount) throws InvalidAmountException {
+        money.creditAmount(amount);
+        return money.getBalance();
     }
 }

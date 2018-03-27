@@ -31,20 +31,13 @@ public class AccountTest {
     }
 
     @Test
-    public void withdrawValidAmount() throws MinimumBalanceException, InvalidAccountNumber {
+    public void withdrawValidAmount() throws MinimumBalanceException, InvalidAccountNumber, InvalidAmountException {
         Account account = Account.create(new AccountNumber("1234-1234"), 2000.00);
         account.debit(800);
         assertThat(account.getBalance(),is(1200.00));
     }
-
-    @Test(expected = MinimumBalanceException.class)
-    public void withdrawInvalidAmount() throws MinimumBalanceException, InvalidAccountNumber {
-        Account account = Account.create(new AccountNumber("1234-1234"), 2000.00);
-        account.debit(2000);
-        assertThat(account.getBalance(),is(2000.00));
-    }
     @Test
-    public void credit() throws InvalidAccountNumber, MinimumBalanceException {
+    public void credit() throws InvalidAccountNumber, MinimumBalanceException, InvalidAmountException {
         Account account = Account.create(new AccountNumber("1234-1234"), 2000.00);
         account.credit(200.490);
         assertThat(account.getBalance(),is(2200.490));
