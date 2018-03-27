@@ -12,5 +12,5 @@ library/out
 library/.settings
 *.iml
 bin/
-transaction.csv
-transaction.txt
+transactions.csv
+transactions.txt

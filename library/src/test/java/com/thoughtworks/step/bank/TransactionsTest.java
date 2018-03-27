@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
@@ -86,5 +87,22 @@ public class TransactionsTest{
         CreditTransaction creditTransaction = new CreditTransaction(new Date(), "from", 1000.0);
         ArrayList<Transaction> creditTransactions = transactions.getCreditTransactions();
         assertThat(creditTransactions,hasItem(creditTransaction));
+    }
+
+    @Test
+    public void getTransactionsafterDate() {
+        transactions.debit(1000.0,"to");
+        transactions.credit(2000.0,"from");
+        Date debitDate = transactions.list.get(0).getDate();
+        Date creditDate = transactions.list.get(1).getDate();
+        CreditTransaction creditTransaction = new CreditTransaction(creditDate, "from", 2000.0);
+        DebitTransaction debitTransaction = new DebitTransaction(debitDate, "to", 1000.0);
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2018);
+        cal.set(Calendar.MONTH, 2);
+        cal.set(Calendar.DAY_OF_MONTH, 2);
+        Date dateRepresentation = cal.getTime();
+        ArrayList<Transaction> transactionsAfterGivenDate = transactions.getTransactionsAfterGivenDate(dateRepresentation);
+        assertThat(transactionsAfterGivenDate,hasItems(creditTransaction, debitTransaction));
     }
 }

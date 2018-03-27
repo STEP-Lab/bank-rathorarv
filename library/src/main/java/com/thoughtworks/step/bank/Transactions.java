@@ -50,4 +50,14 @@ public class Transactions {
         }
         return credits;
     }
+
+    public ArrayList<Transaction> getTransactionsAfterGivenDate(Date date) {
+        ArrayList<Transaction> aboveDateTransaction = new ArrayList<>();
+        for (Transaction transaction : list){
+            if(transaction.getDate().after(date)){
+                aboveDateTransaction.add(transaction);
+            }
+        }
+        return aboveDateTransaction;
+    }
 }
