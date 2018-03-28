@@ -46,4 +46,8 @@ public class Transaction {
     public String toCsv(){
         return date + "," + to + "," + amount;
     }
+
+    public double getAmount() {
+        return amount;
+    }
 }

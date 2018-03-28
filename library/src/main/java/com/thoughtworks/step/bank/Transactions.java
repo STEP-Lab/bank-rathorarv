@@ -27,9 +27,9 @@ public class Transactions {
     public void printCsv(PrintWriter writer) {
         String[] headers = {"date","to","amount"};
         for(Transaction transaction : list){
-            CsvPrint csvPrint = new CsvPrint(writer, headers);
-            csvPrint.writer(transaction);
-            csvPrint.close();
+            CsvPrinter csvPrinter = new CsvPrinter(writer, headers);
+            csvPrinter.writer(transaction);
+            csvPrinter.close();
         }
     }
 
@@ -62,7 +62,6 @@ public class Transactions {
         return aboveDateTransaction;
     }
     public ArrayList<Transaction> getTransactionsBeforeGivenDate(Date date) {
-        System.out.println(date);
         ArrayList<Transaction> aboveDateTransaction = new ArrayList<>();
         for (Transaction transaction : list){
             if(transaction.getDate().before(date)){
@@ -70,5 +69,25 @@ public class Transactions {
             }
         }
         return aboveDateTransaction;
+    }
+
+    public ArrayList<Transaction> getTransactionsAboveAmount(double amount) {
+        ArrayList<Transaction> filteredTranactions = new ArrayList<>();
+        for (Transaction transaction : list){
+            if(transaction.getAmount()>amount){
+                filteredTranactions.add(transaction);
+            }
+        }
+        return filteredTranactions;
+    }
+
+    public ArrayList<Transaction> getTransactionsBelowAmount(double amount) {
+        ArrayList<Transaction> filteredTranactions = new ArrayList<>();
+        for (Transaction transaction : list){
+            if(transaction.getAmount() < amount){
+                filteredTranactions.add(transaction);
+            }
+        }
+        return filteredTranactions;
     }
 }

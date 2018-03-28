@@ -3,6 +3,7 @@ package com.thoughtworks.step.bank;
 import org.junit.Before;
 import org.junit.Test;
 
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -58,7 +59,7 @@ public class TransactionsTest{
 
     @Test
     public void mustPrintInCsvFile() throws FileNotFoundException, UnsupportedEncodingException {
-        ArrayList<CharSequence> result = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
         transactions.debit(1002.0,"to", 1002.0);
         PrintWriter writer = new PrintWriter("transactions.csv", "utf8"){
             @Override
@@ -115,5 +116,26 @@ public class TransactionsTest{
         date.setMinutes(date.getMinutes() + 12);
         ArrayList<Transaction> transactionsAfterGivenDate = transactions.getTransactionsBeforeGivenDate(date);
         assertThat(transactionsAfterGivenDate,hasItems(creditTransaction, debitTransaction));
+    }
+
+    @Test
+    public void transactionAboveGivenAmount() {
+        transactions.credit(3000.0,"from",3000.00);
+        transactions.debit(1000.0,"to", 1000.0);
+        transactions.debit(999.0,"to", 999.0);
+        Date creditDate = transactions.list.get(0).getDate();
+        CreditTransaction creditTransaction = new CreditTransaction(creditDate, "from", 3000.0,3000.0);
+        ArrayList<Transaction>  filteredTransactions =  transactions.getTransactionsAboveAmount(1000.0);
+        assertThat(filteredTransactions,hasItems(creditTransaction));
+    }
+    @Test
+    public void transactionBelowGivenAmount() {
+        transactions.credit(3000.0,"from",3000.00);
+        transactions.debit(1000.0,"to", 1000.0);
+        transactions.debit(999.0,"to", 999.0);
+        Date debitDate = transactions.list.get(2).getDate();
+        DebitTransaction debitTransaction = new DebitTransaction(debitDate, "to", 999.0,999.0);
+        ArrayList<Transaction>  filteredTransactions =  transactions.getTransactionsBelowAmount(1000.0);
+        assertThat(filteredTransactions,hasItems(debitTransaction));
     }
 }
